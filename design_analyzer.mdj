@@ -1,0 +1,29 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "design analyzer",
+	"ownedElements": [
+		{
+			"_type": "UMLPackage",
+			"_id": "AAAAAAFbByIM++eTSAM=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "test class diagram1",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFbByI7e+eXZo4=",
+					"_parent": {
+						"$ref": "AAAAAAFbByIM++eTSAM="
+					},
+					"name": "test class diagram 1",
+					"visible": true,
+					"defaultDiagram": false
+				}
+			],
+			"visibility": "public"
+		}
+	],
+	"author": "Sidharth Mishra"
+}
