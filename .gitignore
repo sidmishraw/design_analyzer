@@ -3,3 +3,4 @@ bulbasaur
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+__pycache__
