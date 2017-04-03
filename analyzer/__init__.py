@@ -3,7 +3,7 @@
 # @Author: Sidharth Mishra
 # @Date:   2017-03-25 18:02:00
 # @Last Modified by:   Sidharth Mishra
-# @Last Modified time: 2017-03-31 00:58:06
+# @Last Modified time: 2017-04-03 16:39:10
 
 
 
@@ -17,7 +17,7 @@ __version__ = '1.0.0'
 # design analyzer specific imports
 from analyzer.d_analyzer import load_mdj_file
 from analyzer.d_analyzer import extract_classes
-
+from analyzer.d_analyzer import build_associations
 
 
 

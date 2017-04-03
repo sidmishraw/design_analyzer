@@ -3,7 +3,7 @@
 # @Author: Sidharth Mishra
 # @Date:   2017-03-25 18:02:29
 # @Last Modified by:   Sidharth Mishra
-# @Last Modified time: 2017-03-31 00:58:16
+# @Last Modified time: 2017-04-03 16:42:43
 
 
 
@@ -54,6 +54,7 @@ __TARGET__ = 'target'
 # StarUML specific type names
 __PROJECT__ = 'Project'
 __UMLCLASS__ = 'UMLClass'
+__UMLMODEL__ = 'UMLModel'
 __UMLPACKAGE__ = 'UMLPackage'
 __UMLASSOCIATION__ = 'UMLAssociation'
 __UMLASSOCIATIONEND__ = 'UMLAssociationEnd'
@@ -133,10 +134,53 @@ def extract_classes(staruml_project):
     raise BadStarUMLProjectError('Malformed project.')
 
   for owned_element in staruml_project[__OWNEDELEMENTS__]:
-    if owned_element[__TYPE__] == __UMLPACKAGE__:
+    if owned_element[__TYPE__] == __UMLPACKAGE__ \
+    or owned_element[__TYPE__] == __UMLMODEL__:
       __extract_classes__(owned_element[__OWNEDELEMENTS__], __classes__)
 
   return
+
+
+
+
+# build the associations
+# only taking into consideration associations and generalizations
+def __extract_associated_class__(owned_element):
+  '''
+  Extracts the associated class for the owned element and maps it in the associations.
+
+  :return: `None`
+  '''
+
+  global __associations__
+
+  if owned_element[__TYPE__] == __UMLASSOCIATION__ \
+  or owned_element[__TYPE__] == __UMLGENERALIZATION__:
+    if owned_element[__PARENT__][__REF__] not in __associations__:
+      __associations__[owned_element[__PARENT__][__REF__]] = [owned_element]
+    else:
+      __associations__[owned_element[__PARENT__][__REF__]].append(owned_element)
+
+  return
+
+
+
+
+def build_associations():
+  '''
+  Maps the classes to the list of classes that are associated with it, i.e, reference it directly
+  or inherit from it etc.
+
+  :return: `None`
+  '''
+
+  global __classes__
+
+  for class_ref, class_obj in __classes__.items():
+    if __OWNEDELEMENTS__ not in class_obj:
+      continue
+    _ = list(map(__extract_associated_class__, class_obj[__OWNEDELEMENTS__]))
+
 
 
 
